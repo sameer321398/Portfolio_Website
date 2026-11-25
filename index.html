@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAMEER — Creative Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Custom 3D Cursor (Instant zero-lag response) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Hero Section (Top navbar completely removed) -->
+  <section class="hero" id="hero">
+    <div class="hero-character-wrap" id="heroCharacterWrap">
+      <!-- High-performance Canvas for instantaneous frame-accurate head tracking -->
+      <canvas id="characterCanvas" class="character-canvas"></canvas>
+      <!-- Hardware-accelerated Video fallback -->
+      <video id="characterVideo" class="character-video" muted playsinline preload="auto">
+        <source src="character_keyframes.mp4" type="video/mp4" />
+        <source src="character_720p.mp4" type="video/mp4" />
+        <source src="character.mp4" type="video/mp4" />
+        <source src="1125 (1).mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Clean Split-Composition Layout: Left info, Empty Center for Character, Right CTAs -->
+    <div class="hero-split-container">
+      <!-- Left Side Content (Vertically Centered, Left-Aligned) -->
+      <div class="hero-left-content">
+        <div class="hero-status-pill reveal-text" data-delay="0">
+          <span class="hero-status-dot"></span>
+          <span>Open to Data Analytics Opportunities</span>
+        </div>
+        <h1 class="hero-main-title reveal-text" data-delay="100">
+          Hi, I’m Sameer.
+        </h1>
+        <p class="hero-subtitle reveal-text" data-delay="200">
+          BCA Student • Aspiring Data Analyst
+        </p>
+        <div class="hero-skill-tags reveal-text" data-delay="300">
+          <span class="hero-skill-badge">SQL</span>
+          <span class="hero-skill-badge">Python</span>
+          <span class="hero-skill-badge">Excel</span>
+          <span class="hero-skill-badge">Java</span>
+          <span class="hero-skill-badge">AI-Assisted Dev</span>
+        </div>
+      </div>
+
+      <!-- Center Spacer Column (Unobstructed View of Character) -->
+      <div class="hero-center-spacer" aria-hidden="true"></div>
+
+      <!-- Right Side Content (Vertically Centered, Right-Aligned) -->
+      <div class="hero-right-content">
+        <div class="hero-cta-group reveal-text" data-delay="400">
+          <a href="#projects" class="btn btn-primary magnetic" data-strength="20">
+            <span>Explore Projects ↗</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sameer-s-6b4a57300" target="_blank" rel="noopener noreferrer" class="btn btn-outline magnetic" data-strength="20">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/>
+              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+
+    <!-- Floating 3D particles -->
+    <div class="hero-particles" id="heroParticles"></div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label reveal-text">01 / About</span>
+        <h2 class="section-title reveal-text" data-delay="100">
+          Turning ideas into<br />
+          <em>digital reality</em>
+        </h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="about-desc reveal-text" data-delay="200">
+            I'm a creative developer passionate about building beautiful, 
+            interactive web experiences. With expertise in modern web technologies, 
+            I bring designs to life with smooth animations, immersive 3D effects, 
+            and pixel-perfect attention to detail.
+          </p>
+          <p class="about-desc reveal-text" data-delay="300">
+            My approach combines technical excellence with artistic vision, 
+            creating digital products that not only function flawlessly but 
+            also leave a lasting impression on every user.
+          </p>
+
+          <div class="about-stats reveal-text" data-delay="400">
+            <div class="stat tilt-card" data-tilt-intensity="20">
+              <span class="stat-number" data-count="50">0</span>
+              <span class="stat-plus">+</span>
+              <span class="stat-label">Projects Done</span>
+            </div>
+            <div class="stat tilt-card" data-tilt-intensity="20">
+              <span class="stat-number" data-count="4">0</span>
+              <span class="stat-plus">+</span>
+              <span class="stat-label">Years Exp.</span>
+            </div>
+            <div class="stat tilt-card" data-tilt-intensity="20">
+              <span class="stat-number" data-count="30">0</span>
+              <span class="stat-plus">+</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visual reveal-text" data-delay="300">
+          <div class="about-card tilt-card" data-tilt-intensity="12">
+            <div class="about-card-inner">
+              <div class="about-card-icon">✦</div>
+              <h3>Philosophy</h3>
+              <p>Every pixel matters. Every interaction counts. I believe great design is invisible — it just works.</p>
+            </div>
+            <div class="about-card-shine"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work / Projects Section -->
+  <section class="section work" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label reveal-text">02 / Work</span>
+        <h2 class="section-title reveal-text" data-delay="100">
+          Selected<br />
+          <em>projects</em>
+        </h2>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card tilt-card reveal-text" data-tilt-intensity="8" data-delay="100">
+          <div class="project-card-visual">
+            <div class="project-gradient" style="--g1: #667eea; --g2: #764ba2;"></div>
+            <div class="project-card-overlay">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-card-info">
+            <span class="project-category">Web Application</span>
+            <h3 class="project-title">E-Commerce Platform</h3>
+            <p class="project-desc">A full-stack shopping experience with real-time inventory and AI recommendations.</p>
+            <div class="project-tags">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>MongoDB</span>
+            </div>
+          </div>
+          <div class="project-card-shine"></div>
+        </article>
+
+        <article class="project-card tilt-card reveal-text" data-tilt-intensity="8" data-delay="200">
+          <div class="project-card-visual">
+            <div class="project-gradient" style="--g1: #f093fb; --g2: #f5576c;"></div>
+            <div class="project-card-overlay">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-card-info">
+            <span class="project-category">Brand Identity</span>
+            <h3 class="project-title">Creative Studio Rebrand</h3>
+            <p class="project-desc">Complete visual identity redesign including logo, color palette, and typography system.</p>
+            <div class="project-tags">
+              <span>Figma</span>
+              <span>Branding</span>
+              <span>Motion</span>
+            </div>
+          </div>
+          <div class="project-card-shine"></div>
+        </article>
+
+        <article class="project-card tilt-card reveal-text" data-tilt-intensity="8" data-delay="300">
+          <div class="project-card-visual">
+            <div class="project-gradient" style="--g1: #4facfe; --g2: #00f2fe;"></div>
+            <div class="project-card-overlay">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-card-info">
+            <span class="project-category">Mobile App</span>
+            <h3 class="project-title">Fitness Tracking App</h3>
+            <p class="project-desc">Cross-platform mobile app with real-time workout tracking and social features.</p>
+            <div class="project-tags">
+              <span>React Native</span>
+              <span>Firebase</span>
+              <span>UI/UX</span>
+            </div>
+          </div>
+          <div class="project-card-shine"></div>
+        </article>
+
+        <article class="project-card tilt-card reveal-text" data-tilt-intensity="8" data-delay="400">
+          <div class="project-card-visual">
+            <div class="project-gradient" style="--g1: #a18cd1; --g2: #fbc2eb;"></div>
+            <div class="project-card-overlay">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+              </svg>
+            </div>
+          </div>
+          <div class="project-card-info">
+            <span class="project-category">3D / WebGL</span>
+            <h3 class="project-title">Interactive Showroom</h3>
+            <p class="project-desc">WebGL-powered 3D product configurator with photorealistic rendering.</p>
+            <div class="project-tags">
+              <span>Three.js</span>
+              <span>GLSL</span>
+              <span>Blender</span>
+            </div>
+          </div>
+          <div class="project-card-shine"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section skills" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label reveal-text">03 / Skills</span>
+        <h2 class="section-title reveal-text" data-delay="100">
+          Tools &<br />
+          <em>technologies</em>
+        </h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="100">
+          <div class="skill-icon">⚡</div>
+          <h3>Frontend</h3>
+          <p>React, Vue, Next.js, TypeScript, Tailwind CSS, GSAP, Three.js</p>
+          <div class="skill-card-shine"></div>
+        </div>
+
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="200">
+          <div class="skill-icon">⚙️</div>
+          <h3>Backend</h3>
+          <p>Node.js, Python, Express, Django, PostgreSQL, MongoDB, Redis</p>
+          <div class="skill-card-shine"></div>
+        </div>
+
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="300">
+          <div class="skill-icon">🎨</div>
+          <h3>Design</h3>
+          <p>Figma, Adobe Creative Suite, Motion Design, Prototyping, UI/UX</p>
+          <div class="skill-card-shine"></div>
+        </div>
+
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="400">
+          <div class="skill-icon">☁️</div>
+          <h3>DevOps</h3>
+          <p>Docker, AWS, CI/CD, Vercel, Netlify, GitHub Actions</p>
+          <div class="skill-card-shine"></div>
+        </div>
+
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="500">
+          <div class="skill-icon">📱</div>
+          <h3>Mobile</h3>
+          <p>React Native, Flutter, Progressive Web Apps, Responsive Design</p>
+          <div class="skill-card-shine"></div>
+        </div>
+
+        <div class="skill-card tilt-card reveal-text" data-tilt-intensity="18" data-delay="600">
+          <div class="skill-icon">🧠</div>
+          <h3>Other</h3>
+          <p>AI/ML Integration, Web3, SEO, Performance Optimization, A11y</p>
+          <div class="skill-card-shine"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee / Infinite Scroll Text -->
+  <section class="marquee-section">
+    <div class="marquee">
+      <div class="marquee-inner">
+        <span>Creative Developer</span>
+        <span class="marquee-dot">✦</span>
+        <span>UI/UX Designer</span>
+        <span class="marquee-dot">✦</span>
+        <span>Problem Solver</span>
+        <span class="marquee-dot">✦</span>
+        <span>Creative Developer</span>
+        <span class="marquee-dot">✦</span>
+        <span>UI/UX Designer</span>
+        <span class="marquee-dot">✦</span>
+        <span>Problem Solver</span>
+        <span class="marquee-dot">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label reveal-text">04 / Contact</span>
+        <h2 class="section-title reveal-text" data-delay="100">
+          Let's work<br />
+          <em>together</em>
+        </h2>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal-text" data-delay="200">
+          <p class="contact-desc">
+            Have a project in mind? Let's create something amazing together. 
+            Drop me a message and I'll get back to you within 24 hours.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:hello@sameer.dev" class="contact-link magnetic" data-strength="15">
+              <span class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M22 7L13.03 12.7a1.94 1.94 0 01-2.06 0L2 7"/>
+                </svg>
+              </span>
+              <span>hello@sameer.dev</span>
+            </a>
+            <a href="#" class="contact-link magnetic" data-strength="15">
+              <span class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+                </svg>
+              </span>
+              <span>LinkedIn</span>
+            </a>
+            <a href="#" class="contact-link magnetic" data-strength="15">
+              <span class="contact-link-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                </svg>
+              </span>
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal-text" data-delay="300" id="contactForm">
+          <div class="form-group">
+            <input type="text" id="name" placeholder="Your Name" required class="form-input" />
+            <div class="form-line"></div>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" placeholder="Your Email" required class="form-input" />
+            <div class="form-line"></div>
+          </div>
+          <div class="form-group">
+            <textarea id="message" placeholder="Tell me about your project..." rows="4" required class="form-input"></textarea>
+            <div class="form-line"></div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full magnetic" data-strength="20">
+            <span>Send Message</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">&copy; 2026 Sameer. All rights reserved.</span>
+      <span class="footer-made">Crafted with passion ✦</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
