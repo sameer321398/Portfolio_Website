@@ -407,8 +407,49 @@
     </div>
   </section>
 
+  <!-- Back to Top (above footer separator line) -->
+  <div class="back-to-top-wrap">
+    <button
+      type="button"
+      class="footer-top-pill"
+      id="footerBackToTop"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <span class="footer-top-arrow" aria-hidden="true">↑</span>
+      <span>Back to top</span>
+    </button>
+  </div>
+
   <!-- Footer -->
-  <footer class="footer"></footer>
+  <footer class="footer" id="footer">
+    <div class="footer-particles" id="footerParticles" aria-hidden="true"></div>
+
+    <div class="footer-stage reveal-text" id="footerStage">
+      <div class="footer-character-wrap">
+        <canvas
+          id="footerCanvas"
+          class="footer-canvas"
+          width="854"
+          height="480"
+          aria-label="Animated character in footer"
+        ></canvas>
+        <video
+          class="footer-video footer-video-source"
+          id="footerVideo"
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="footer%20%28online-video-cutter.com%29.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>

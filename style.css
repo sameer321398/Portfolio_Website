@@ -1471,23 +1471,185 @@ button {
 /* ============================
    FOOTER
    ============================ */
-.footer {
-  padding: 2rem 0;
-  border-top: 1px solid var(--border);
-}
-
-.footer-inner {
+.back-to-top-wrap {
+  width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  padding: 0 1rem clamp(1.25rem, 3vw, 2rem);
+  background: var(--bg);
 }
 
-.footer-copy,
-.footer-made {
+.footer {
+  position: relative;
+  width: 100%;
+  padding: clamp(1.75rem, 4vw, 3rem) 0 clamp(1.25rem, 2.5vw, 1.75rem);
+  margin: 0;
+  background:
+    radial-gradient(ellipse 52% 72% at 50% 56%, rgba(129, 140, 248, 0.14) 0%, rgba(168, 85, 247, 0.06) 45%, transparent 78%),
+    var(--bg);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(129, 140, 248, 0.45) 50%, transparent 95%);
+  pointer-events: none;
+}
+
+.footer-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-stage {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 clamp(0.75rem, 3vw, 2rem);
+}
+
+.footer-character-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 700px);
+}
+
+.footer-character-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(60%, 340px);
+  height: 22px;
+  background: radial-gradient(ellipse at center, rgba(129, 140, 248, 0.3) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 75%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-canvas,
+.footer-video {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  max-height: clamp(210px, 34vw, 390px);
+  display: block;
+  object-fit: contain;
+}
+
+/* Hidden offscreen source when canvas chroma-key is active */
+.footer-video-source {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  left: -9999px;
+  top: -9999px;
+}
+
+/* Graceful fallback if canvas chroma-key is unavailable (e.g. file:// protocol) */
+.footer-stage.fallback-video .footer-canvas {
+  display: none;
+}
+
+.footer-stage.fallback-video .footer-video-source {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 8%, #000 96%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%),
+    linear-gradient(180deg, transparent 0%, #000 8%, #000 96%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.footer-top-pill {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 1.1rem;
+  border-radius: 100px;
+  background: rgba(129, 140, 248, 0.12);
+  border: 1px solid rgba(129, 140, 248, 0.28);
+  color: var(--accent-light);
+  font-family: var(--font-sans);
   font-size: 0.8rem;
-  color: var(--text-tertiary);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-top-pill:hover,
+.footer-top-pill:focus-visible {
+  background: rgba(129, 140, 248, 0.22);
+  border-color: rgba(165, 180, 252, 0.55);
+  box-shadow: 0 4px 18px rgba(129, 140, 248, 0.22);
+  transform: translateY(-2px);
+}
+
+.footer-top-arrow {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.footer-top-pill:hover .footer-top-arrow {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 676px) {
+  .footer {
+    padding: 1.25rem 0 1.25rem;
+  }
+
+  .footer-canvas,
+  .footer-video {
+    max-height: none;
+  }
+}
+
+@media (max-height: 540px) and (orientation: landscape) {
+  .footer-character-wrap {
+    width: min(100%, 460px);
+  }
+
+  .footer-canvas,
+  .footer-video {
+    max-height: 240px;
+  }
 }
 
 /* ============================
