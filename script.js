@@ -746,12 +746,11 @@
   }
 
   /* =========================================
-     11B. FOOTER VIDEO (CHROMA-KEY + PARTICLES + BACK TO TOP)
+     11B. FOOTER VIDEO (PLAYBACK + PARTICLES + BACK TO TOP)
      ========================================= */
 
   function setupFooterVideo() {
     const footerVideo = document.getElementById('footerVideo');
-    const footerCanvas = document.getElementById('footerCanvas');
     const footerStage = document.getElementById('footerStage');
     const footerBackToTop = document.getElementById('footerBackToTop');
     const footerParticles = document.getElementById('footerParticles');
@@ -786,94 +785,26 @@
     footerVideo.playsInline = true;
 
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const ctx = footerCanvas ? footerCanvas.getContext('2d', { willReadFrequently: true }) : null;
-    let useCanvasKey = Boolean(ctx);
-    let isVisible = false;
-    let rafHandle = null;
-
-    function keyAndDrawFrame() {
-      if (!useCanvasKey || !ctx || footerVideo.readyState < 2) return;
-
-      const w = footerCanvas.width;
-      const h = footerCanvas.height;
-
-      try {
-        ctx.drawImage(footerVideo, 0, 0, w, h);
-        const frame = ctx.getImageData(0, 0, w, h);
-        const data = frame.data;
-
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
-
-          // Mint studio backdrop has both G and B well above R, unlike lime hoodie (low B) or skin/shoes
-          const mintness = Math.min(g - r, b - r);
-          if (mintness >= 32) {
-            data[i + 3] = 0;
-          } else if (mintness > 10) {
-            const keep = 1 - (mintness - 10) / 22;
-            data[i + 3] = Math.round(data[i + 3] * keep);
-            // Despill cyan/mint fringe on anti-aliased edges
-            const cap = r + 10;
-            if (g > cap) data[i + 1] = Math.round(cap + (g - cap) * keep);
-            if (b > cap) data[i + 2] = Math.round(cap + (b - cap) * keep);
-          }
-        }
-
-        ctx.putImageData(frame, 0, 0);
-      } catch (err) {
-        // Fallback cleanly to masked <video> if canvas readback is blocked (e.g., file://)
-        useCanvasKey = false;
-        if (footerStage) footerStage.classList.add('fallback-video');
-      }
-    }
-
-    function renderLoop() {
-      if (!isVisible || document.hidden || !useCanvasKey) {
-        rafHandle = null;
-        return;
-      }
-      keyAndDrawFrame();
-      rafHandle = requestAnimationFrame(renderLoop);
-    }
-
-    function startRenderLoop() {
-      if (useCanvasKey && !rafHandle && isVisible && !document.hidden) {
-        rafHandle = requestAnimationFrame(renderLoop);
-      }
+    if (prefersReducedMotion) {
+      footerVideo.pause();
+      return;
     }
 
     const tryPlay = () => {
-      if (prefersReducedMotion) {
-        footerVideo.pause();
-        keyAndDrawFrame();
-        return;
-      }
       const p = footerVideo.play();
       if (p && typeof p.catch === 'function') {
         p.catch(() => {});
       }
     };
 
-    footerVideo.addEventListener('loadeddata', () => {
-      keyAndDrawFrame();
-    });
-
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            isVisible = entry.isIntersecting;
-            if (isVisible) {
+            if (entry.isIntersecting) {
               tryPlay();
-              startRenderLoop();
             } else {
               footerVideo.pause();
-              if (rafHandle) {
-                cancelAnimationFrame(rafHandle);
-                rafHandle = null;
-              }
             }
           });
         },
@@ -881,15 +812,15 @@
       );
       observer.observe(footerStage || footerVideo);
     } else {
-      isVisible = true;
       tryPlay();
-      startRenderLoop();
     }
 
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && isVisible) {
-        tryPlay();
-        startRenderLoop();
+      if (!document.hidden && footerStage) {
+        const rect = footerStage.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          tryPlay();
+        }
       }
     });
   }
